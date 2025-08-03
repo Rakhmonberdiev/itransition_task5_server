@@ -1,14 +1,17 @@
-﻿namespace itransition_task5_server.Helpers
+﻿using itransition_task5_server.DTOs;
+
+namespace itransition_task5_server.Helpers
 {
     public static class PaginationHelper
     {
-        public static (int Skip, int Take) Calculate(int page, int pageSize, int initialPageSize)
+        private const int InitialPageSize = 20;
+        public static (int Skip, int Take) Calculate(BookRequestDto req)
         {
-            if (page == 0)
-                return (0, initialPageSize);
+            if (req.Page == 0)
+                return (0, InitialPageSize);
 
-            int skip = initialPageSize + (page - 1) * pageSize;
-            return (skip, pageSize);
+            int skip = InitialPageSize + (req.Page - 1) * req.PageSize;
+            return (skip, req.PageSize);
         }
     }
 }
